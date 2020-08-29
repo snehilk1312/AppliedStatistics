@@ -1,0 +1,41 @@
+---
+title: "Content: ANCOVA"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## **Packages Used:**
+
+  * car
+  * compute.es
+  * ggplot2
+  * WRS
+  * multcomp
+  * pastecs
+  * dplyr
+  * reshape2
+  * effects, for adjusted means
+
+## **Content Covered:**
+
+1.  Levene Test
+1.  Ancova using aov(), Anova()
+1.  Planned Comparison, using various Contrasts
+1.  Adjusted Means , using effects()
+1.  Post-hoc tests, using glht(), on Adjusted Means
+1.  Assumptions of Ancova
+    1. Assumptions of Anova included
+    1. Homogeneity of regression slopes
+    1. Independence of covariate and experimental manipulator
+1. Effect Size ,
+    1. partial R Squared (partial eta-squared)
+    1. using mes(), for differnt pair of groups
+    1. effect size of contrasts
+1. Robust Ancova
+    1. Data in Right order
+    1. using
+       1. ancova()
+       1. ancboot()
