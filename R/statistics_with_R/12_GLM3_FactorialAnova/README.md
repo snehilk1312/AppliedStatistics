@@ -27,5 +27,5 @@ Factorial Anova
         1.  mcp2atm()
         2.  mcp2a()
 7.  Effect Size
-    1.  omega factorial
+    1.  omega squared
     2.  using mes(), for different pair of groups
