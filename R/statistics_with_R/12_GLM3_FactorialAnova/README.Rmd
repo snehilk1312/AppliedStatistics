@@ -1,0 +1,39 @@
+---
+title: "Factorial Anova"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+## **Packages Used:**
+
+  * car
+  * compute.es
+  * ggplot2
+  * WRS
+  * multcomp
+  * pastecs
+  * dplyr
+  * reshape
+
+## **Content Covered:**
+
+1.  Levene Test, on interaction term
+1.  Interaction line Plots and Bar Plots
+1.  Planned Comparison, using  Contrasts
+1.  Effect Analysis
+1.  Post-hoc tests, using pairwise.t.test()
+1.  Robust Factorial Anova
+    1. Two way robust factorial anova:
+       1. Get data in right format
+       1. functions used: t2way() , pbad2way()
+    1. Robust PostHoc tests
+       1. mcp2atm()
+       1. mcp2a()
+1. Effect Size 
+    1. omega factorial
+    1. using mes(), for different pair of groups
+
