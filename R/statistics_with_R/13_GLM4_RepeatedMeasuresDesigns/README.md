@@ -27,7 +27,7 @@ Repeated Measure Anova
 10. Using Multilevel approach, lme(method=“ML”)
 11. Comparing model using anova()
 12. Post-hoc tests, using pairwise.t.test()
-13. Robust Factorial Anova
+13. Robust Repeated Measure Anova
     1.  Two way robust factorial anova:
         1.  Get data in right format, i.e. wide
         2.  functions used: rmanova(), rmanovab()
