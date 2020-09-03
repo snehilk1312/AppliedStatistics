@@ -1,0 +1,97 @@
+library(ez)
+library(nlme)
+library(ggplot2)
+library(multcomp)
+library(pastecs)
+library(WRS)
+library(reshape)
+
+
+df<- read.delim('/home/atrides/Desktop/R/statistics_with_R/13_GLM4_RepeatedMeasuresDesigns/Data_Files/Bushtucker.dat', header = TRUE)
+
+head(df)
+
+df_long<- melt(df, id.vars = "participant", measure.vars = c("stick_insect","kangaroo_testicle","fish_eye", "witchetty_grub"), 
+               variable_name = "Animal")
+
+df_long$Animal<- factor(df_long$Animal, labels = c("Stick Insect", "Kangaroo Testicle", "Fish Eye", "Witchetty Grub"))
+df_long$participant<- factor(df_long$participant)
+is.factor(df_long$Animal)
+
+# Bar Chart
+bar<- ggplot(df_long, aes(Animal, value))+
+  stat_summary(fun=mean, geom = "bar", colour="black", fill="white")+
+  stat_summary(fun.data = mean_cl_normal, geom="pointrange")+
+  labs(y="Retch Time")+
+  ggtitle("Animal vs Retch Time")
+bar
+
+# Box Plot
+box<- ggplot(df_long, aes(Animal, value))+
+  geom_boxplot()+
+  ggtitle("Animal vs Retch Time")+
+  labs(y="Retch Time")
+box
+
+by(df_long$value, df_long$Animal , stat.desc)
+
+
+# Planned Contrasts
+
+# setting up contrasts
+partVSwhole<- c(1,-1,-1,1)
+testicleVSeye<- c(0,-1,1,0)
+stickVSgrub<- c(-1,0,0,1)
+
+contrasts(df_long$Animal)<- cbind(partVSwhole, testicleVSeye, stickVSgrub)
+
+# Doing repeated measure anova
+m01<- ezANOVA(df_long,dv=.(value), wid=.(participant) , within=.(Animal), detailed = TRUE, type = 3)
+m01
+
+
+# Using multilevel approach, you can forget about sphericity
+m02<- lme(value~Animal, random = ~1|participant/Animal, data=df_long, method = "ML")
+m02
+
+model_baseline<- lme(value~1, random = ~1|participant/Animal, data=df_long, method="ML")
+
+# comparing the model
+anova(model_baseline,m02)
+# from p-value and L.Ratio, we can see that after including Animal in our
+# independent variable , there is improvement in model correctness.
+
+summary(m02)
+
+
+# Post-Hoc tests
+
+# using pairwise t-test
+postHoc1<- pairwise.t.test(df_long$value, df_long$Animal, paired=TRUE, p.adjust.method = "bonferroni")
+postHoc1
+
+# using glht
+postHoc2<- glht(m02, linfct=mcp(Animal="Tukey"))
+summary(postHoc2)
+confint(postHoc2)
+
+
+
+# Effect Size for repeated measure design
+
+# a practical measure of effect size will be generalized  eta squared, which is present
+# in output of ezAnova model m02
+
+ges<- 0.3275
+cat("Generalized Eta Squared: ", ges)
+
+# getting effect size of various contrasts used in our model
+rcontrast<- function(t, dof){
+  eff<- sqrt(t^2/((t^2)+dof))
+  cat("r contrast: ", eff)
+}
+
+rcontrast(3.149752, 21)
+rcontrast(-0.101237, 21)
+rcontrast(-1.923500, 21)
+

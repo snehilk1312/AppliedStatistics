@@ -1,0 +1,46 @@
+---
+title: "Repeated Measure Anova"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## **Packages Used:**
+
+  * ez
+  * nlme
+  * ggplot2
+  * WRS
+  * multcomp
+  * pastecs
+  * dplyr
+  * reshape
+
+## **Content Covered:**
+
+1.  Repeated Measure Anova, Robust Repeated Measure Anova, Factorial Repeated Measure Anova
+1.  Assumption of Sphericity, Compound Symmetry
+1.  Mauchly’s test
+1.  Greenhouse–Geisser correction 
+1.  Huynh–Feldt correction
+1.  Lower Bound
+1.  Bar charts, Boxplots, Interaction Plots
+1.  Planned Comparison, using  Contrasts
+1.  Repeated Measure Anova , using ezANOVA()
+1.  Using Multilevel approach, lme(method="ML")
+1.  Comparing model using anova()
+1.  Post-hoc tests, using pairwise.t.test()
+1.  Robust Factorial Anova
+    1. Two way robust factorial anova:
+       1. Get data in right format, i.e. wide
+       1. functions used: rmanova(), rmanovab()
+    1. Robust PostHoc tests
+       1. rmmcp()
+       1. pairdepb()
+1. Effect Size 
+    1. ges , from ezANOVA() table
+    1. getting 'r' from contrasts test statistics
+1. Factorial Repeated Measure Anova, almost all functions are same
+1. NOTE: No function for  Robust Factorial Repeated Measure Anova in R(as per now)
